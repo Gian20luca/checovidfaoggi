@@ -1,0 +1,15 @@
+.leaflet-container {
+  height: 400px;
+  width: 30%;
+  background: none !important;
+}
+.leaflet-control-container {
+  display: none;
+}
+.containerMapGlobal{
+  height: 50%;
+  width: 100%;
+}
+.leaflet-layer {
+  opacity: 0! important;
+}
