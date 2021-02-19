@@ -1,55 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { MapItalyComponent } from '../mapItalyComponent/MapItalyComponent';
 import './DataRegionsComponent.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDataRegions } from '../../RTK/slices/dataRegionsSlice';
+
 
 export const DataRegionsComponent = () => {
     const _ = require("lodash");
-    const dataregionsselector = (state: any) => state.dataRegions;
-    const dataregions = useSelector(dataregionsselector);
 
-    const dispatch = useDispatch();
+    const [DataRegions, setDataRegions]: any = useState([]);
+    useEffect((): any => {
+        return fetch(
+            "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json"
+        )
+            .then((response) => response.json())
+            .then((data) => setDataRegions(data));
+    }
+        , []);
 
-    useEffect(() => {
-         dispatch(getDataRegions()) }
-    , []);
 
-    // var allDataRegions: any = [];
-    // dataregions['dataRegions'].map( (item: any) => {
-    //     allDataRegions.push(item);
-    // });
-
-    //assegnazione id come il geojson
-    dataregions['dataRegions'].map((item: any) => {
-        item.denominazione_regione === "Piemonte" ? item.codice_regione = 1 :
-            item.denominazione_regione === "Valle d'Aosta" ? item.codice_regione = 2 :
-                item.denominazione_regione === "Lombardia" ? item.codice_regione = 3 :
-                    item.denominazione_regione === "P.A. Trento" ? item.codice_regione = 4 :
-                        item.denominazione_regione === "Veneto" ? item.codice_regione = 5 :
-                            item.denominazione_regione === "Friuli Venezia Giulia" ? item.codice_regione = 6 :
-                                item.denominazione_regione === "Liguria" ? item.codice_regione = 7 :
-                                    item.denominazione_regione === "Emilia-Romagna" ? item.codice_regione = 8 :
-                                        item.denominazione_regione === "Toscana" ? item.codice_regione = 9 :
-                                            item.denominazione_regione === "Umbria" ? item.codice_regione = 10 :
-                                                item.denominazione_regione === "Marche" ? item.codice_regione = 11 :
-                                                    item.denominazione_regione === "Lazio" ? item.codice_regione = 12 :
-                                                        item.denominazione_regione === "Abruzzo" ? item.codice_regione = 13 :
-                                                            item.denominazione_regione === "Molise" ? item.codice_regione = 14 :
-                                                                item.denominazione_regione === "Campania" ? item.codice_regione = 15 :
-                                                                    item.denominazione_regione === "Puglia" ? item.codice_regione = 16 :
-                                                                        item.denominazione_regione === "Basilicata" ? item.codice_regione = 17 :
-                                                                            item.denominazione_regione === "Calabria" ? item.codice_regione = 18 :
-                                                                                item.denominazione_regione === "Sicilia" ? item.codice_regione = 19 :
-                                                                                    item.denominazione_regione === "Sardegna" ? item.codice_regione = 20 : item.codice_regione = 21
+    let allDataRegions: any = [];
+    DataRegions.map((item: any) => {
+        allDataRegions.push(item);
     })
 
-    dataregions['dataRegions'] = _.orderBy(dataregions['dataRegions'], ["codice_regione"], ["asc"]);
-    console.log(dataregions['dataRegions'])
+
+    //assegnazione id come il geojson
+    allDataRegions.map((item: any) => {
+        item.denominazione_regione === "Piemonte" ? item.id = 1 :
+            item.denominazione_regione === "Valle d'Aosta" ? item.id = 2 :
+                item.denominazione_regione === "Lombardia" ? item.id = 3 :
+                    item.denominazione_regione === "P.A. Trento" ? item.id = 4 :
+                        item.denominazione_regione === "Veneto" ? item.id = 5 :
+                            item.denominazione_regione === "Friuli Venezia Giulia" ? item.id = 6 :
+                                item.denominazione_regione === "Liguria" ? item.id = 7 :
+                                    item.denominazione_regione === "Emilia-Romagna" ? item.id = 8 :
+                                        item.denominazione_regione === "Toscana" ? item.id = 9 :
+                                            item.denominazione_regione === "Umbria" ? item.id = 10 :
+                                                item.denominazione_regione === "Marche" ? item.id = 11 :
+                                                    item.denominazione_regione === "Lazio" ? item.id = 12 :
+                                                        item.denominazione_regione === "Abruzzo" ? item.id = 13 :
+                                                            item.denominazione_regione === "Molise" ? item.id = 14 :
+                                                                item.denominazione_regione === "Campania" ? item.id = 15 :
+                                                                    item.denominazione_regione === "Puglia" ? item.id = 16 :
+                                                                        item.denominazione_regione === "Basilicata" ? item.id = 17 :
+                                                                            item.denominazione_regione === "Calabria" ? item.id = 18 :
+                                                                                item.denominazione_regione === "Sicilia" ? item.id = 19 :
+                                                                                    item.denominazione_regione === "Sardegna" ? item.id = 20 : item.id = 21
+    })
+
+
+    allDataRegions = _.orderBy(allDataRegions, ["id"], ["asc"]);
+    console.log(allDataRegions);
+
     return (
         <div>
-            { dataregions['dataRegions'] && <div>
-
-                {dataregions['dataRegions'].map((item: any, index: number) => <div key={index}>
+            {/* { allDataRegions && <div>
+                {allDataRegions.map((item: any) => <div key={item.id}>
                     <h1> {item.denominazione_regione}</h1>
                     <p> Deceduti: {item.deceduti}</p>
                     <p> Dimessi guariti: {item.dimessi_guariti}</p>
@@ -67,8 +72,7 @@ export const DataRegionsComponent = () => {
                     <p> Totale positivi test antigenico rapido: {item.totale_positivi_test_antigenico_rapido}</p>
                     <p> Totale positivi test molecolare: {item.totale_positivi_test_molecolare}</p>
                 </div>)}
-            </div>}
+            </div>} */}
         </div>
     );
-
 }

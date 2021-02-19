@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <MapItalyComponent />
-      <DataRegionsComponent />
+      {/* <DataRegionsComponent /> */}
     </div>
   );
 }
