@@ -1,15 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+.container-fluid{
+  display: flex;
+  justify-content:space-evenly;
+}
 .leaflet-container {
-  height: 400px;
-  width: 30%;
+  /* height: 80vh;
+  width: 100%; */
+  height: 675px;
+  width: 430px;
   background: none !important;
 }
 .leaflet-control-container {
   display: none;
 }
-.containerMapGlobal{
-  height: 50%;
+.containerMapGlobal {
+  height: 100%;
   width: 100%;
 }
 .leaflet-layer {
-  opacity: 0! important;
+  opacity: 0 !important;
+}
+.modale {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.modale p,
+h3 {
+  font-weight: bold;
+  text-shadow: 0.4px 0.4px 0 #333, 0.4px -0.4px 0 #333, -0.4px 0.4px 0 #333,
+    -0.4px -0.4px 0 #333;
+}
+.modale h3 {
+  text-transform: uppercase;
+}
+.card {
+  height: 100%;
+  width: 350px !important;
+  padding: 1%;
+}
+.card-body {
+  line-height: 1;
+  overflow-y: auto !important;
+}
+.clickP {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 500;
 }

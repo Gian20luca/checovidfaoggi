@@ -53,6 +53,7 @@ export const DataRegionsComponent = () => {
 
     return (
         <div>
+            
             {/* { allDataRegions && <div>
                 {allDataRegions.map((item: any) => <div key={item.id}>
                     <h1> {item.denominazione_regione}</h1>

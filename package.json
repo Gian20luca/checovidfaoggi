@@ -44,6 +44,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@types/react-leaflet": "^2.5.2",
     "@types/react-redux": "^7.1.16",
+    "animate.css": "^4.1.1",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.7.1",
