@@ -54,4 +54,14 @@ export class FetchData {
       .then((response) => response.json())
       .then((data) => data);
   }
+
+  //recupero dati vaccini per fasce d eta
+  getVaccini(){
+   return fetch(
+      "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/anagrafica-vaccini-summary-latest.json"
+  )
+      .then((response) => response.json())
+      .then((data) => data.data);
+      
+  }
 }

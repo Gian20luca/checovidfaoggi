@@ -3,19 +3,20 @@ import './MapItalyComponent.css';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FetchData } from '../../service/fetchData';
+import { applicaSeparatore } from '../../core/functions/applicaSeparatore';
 
 export const MapItalyComponent: React.FC = () => {
-    const position: any = [42, 13];
+    const position: any = [42, 12.5];
     const _ = require("lodash");
     const objectAssign = require('object-assign');
     let service = FetchData.getInstance();
     const [dataGeojson, setDataGeojson]: any = useState();
     const [colorsGeojson, setColorsGeojson]: any = useState([]);
     const [DataRegions, setDataRegions]: any = useState([]);
-    const [vaccini, setVaccini]: any = useState([]);
     const [openDetails, setOpenDetails]: any = useState('');
     const [colorBGDetails, setColorBGDetails]: any = useState('');
 
+    let larghezzaDocument = document.documentElement.clientWidth;
 
     useEffect(() => {
 
@@ -32,16 +33,10 @@ export const MapItalyComponent: React.FC = () => {
         )
             .then((response) => response.json())
             .then((data) => setDataRegions(data));
-        fetch(
-            "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/anagrafica-vaccini-summary-latest.json"
-        )
-            .then((response) => response.json())
-            .then((data) => setVaccini(data));
     }, []);
 
     // console.log('GEOJSON',dataGeojson)
-    // console.log('MODALE',openDetails)
-    console.log('vaccini', vaccini)
+    // // console.log('MODALE',openDetails)
 
     //recupero dati di ogni regione
     let allDataRegions: any = [];
@@ -179,30 +174,38 @@ export const MapItalyComponent: React.FC = () => {
 
     }
 
-    return (<div>
-        {!openDetails &&
-        <p className='clickP'>
-            Clicka su una regione per saperne di più.
-            </p>}
-        <div className='container-fluid'>
+    const responsiveMap = (larghezza: number) => {
+        if (larghezza < 415) {
+            return 5
+        } else {
+            return 5.5
+        }
+    }
 
+    return (<div>
+        {/* {!openDetails &&
+            <p className='clickP'>
+                Clicka su una regione per saperne di più.
+            </p>} */}
+        <div className='container-fluid'>
             <div className='row'>
                 <div className='col-md-6'>
                     <div className='containerMapGlobal animate_ animate__animated animate__bounceIn'>
 
-                        <MapContainer id='map' center={position} zoom={5.5} maxZoom={5.5} minZoom={5.5} maxBounds={position} dragging={false}>
+                        <MapContainer id='map' center={position} zoom={responsiveMap(larghezzaDocument)} maxZoom={responsiveMap(larghezzaDocument)} minZoom={responsiveMap(larghezzaDocument)} maxBounds={position} dragging={false}>
                             <TileLayer
                                 attribution='Progetto di: Gianluca Bellafronte'
                                 url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
                             />
                             {dataGeojson && colorsGeojson && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson.features}></GeoJSON>}
                         </MapContainer>
+
                     </div>
                 </div>
                 {openDetails &&
                     <div className='col-md-6 modale animate_ animate__animated animate__bounceInLeft' id='modale'>
 
-                        <div className="col-m-6">
+                        <div>
 
                             {openDetails &&
 
@@ -217,21 +220,21 @@ export const MapItalyComponent: React.FC = () => {
                                                     <h3> {item.denominazione_regione}</h3>
                                                 </div>
                                                 <div className="card-body">
-                                                    <p> Deceduti: {item.deceduti}</p>
-                                                    <p> Dimessi guariti: {item.dimessi_guariti}</p>
-                                                    <p> Ingressi terapia intensiva: {item.ingressi_terapia_intensiva}</p>
-                                                    <p> Isolamento domiciliare: {item.isolamento_domiciliare}</p>
-                                                    <p> Nuovi positivi: {item.nuovi_positivi}</p>
-                                                    <p> Ricoverati con sintomi: {item.ricoverati_con_sintomi}</p>
-                                                    <p> Tamponi: {item.tamponi}</p>
-                                                    <p> Tamponi test antigenico rapido: {item.tamponi_test_antigenico_rapido}</p>
-                                                    <p> Tamponi test molecolare: {item.tamponi_test_molecolare}</p>
-                                                    <p> Terapia intensiva: {item.terapia_intensiva}</p>
-                                                    <p> Totale casi: {item.totale_casi}</p>
-                                                    <p> Totale ospedalizzati: {item.totale_ospedalizzati}</p>
-                                                    <p> Totale positivi: {item.totale_positivi}</p>
-                                                    <p> Totale positivi test antigenico rapido: {item.totale_positivi_test_antigenico_rapido}</p>
-                                                    <p> Totale positivi test molecolare: {item.totale_positivi_test_molecolare}</p>
+                                                    <p> Deceduti: {applicaSeparatore(item.deceduti)}</p>
+                                                    <p> Dimessi guariti: {applicaSeparatore(item.dimessi_guariti)}</p>
+                                                    <p> Ingressi terapia intensiva: {applicaSeparatore(item.ingressi_terapia_intensiva)}</p>
+                                                    <p> Isolamento domiciliare: {applicaSeparatore(item.isolamento_domiciliare)}</p>
+                                                    <p> Nuovi positivi: {applicaSeparatore(item.nuovi_positivi)}</p>
+                                                    <p> Ricoverati con sintomi: {applicaSeparatore(item.ricoverati_con_sintomi)}</p>
+                                                    <p> Tamponi: {applicaSeparatore(item.tamponi)}</p>
+                                                    <p> Tamponi test antigenico rapido: {applicaSeparatore(item.tamponi_test_antigenico_rapido)}</p>
+                                                    <p> Tamponi test molecolare: {applicaSeparatore(item.tamponi_test_molecolare)}</p>
+                                                    <p> Terapia intensiva: {applicaSeparatore(item.terapia_intensiva)}</p>
+                                                    <p> Totale casi: {applicaSeparatore(item.totale_casi)}</p>
+                                                    <p> Totale ospedalizzati: {applicaSeparatore(item.totale_ospedalizzati)}</p>
+                                                    <p> Totale positivi: {applicaSeparatore(item.totale_positivi)}</p>
+                                                    <p> Totale positivi test antigenico rapido: {applicaSeparatore(item.totale_positivi_test_antigenico_rapido)}</p>
+                                                    <p> Totale positivi test molecolare: {applicaSeparatore(item.totale_positivi_test_molecolare)}</p>
                                                 </div>
                                             </div>
                                         )
@@ -239,7 +242,7 @@ export const MapItalyComponent: React.FC = () => {
                                 })
                             }
                         </div>
-                        <div className="col-m-6">
+                        <div>
                             {openDetails &&
 
                                 (4 === openDetails) ?
@@ -248,21 +251,21 @@ export const MapItalyComponent: React.FC = () => {
                                         <h3> {allDataRegions[20].denominazione_regione}</h3>
                                     </div>
                                     <div className="card-body">
-                                        <p> Deceduti: {allDataRegions[20].deceduti}</p>
-                                        <p> Dimessi guariti: {allDataRegions[20].dimessi_guariti}</p>
-                                        <p> Ingressi terapia intensiva: {allDataRegions[20].ingressi_terapia_intensiva}</p>
-                                        <p> Isolamento domiciliare: {allDataRegions[20].isolamento_domiciliare}</p>
-                                        <p> Nuovi positivi: {allDataRegions[20].nuovi_positivi}</p>
-                                        <p> Ricoverati con sintomi: {allDataRegions[20].ricoverati_con_sintomi}</p>
-                                        <p> Tamponi: {allDataRegions[20].tamponi}</p>
-                                        <p> Tamponi test antigenico rapido: {allDataRegions[20].tamponi_test_antigenico_rapido}</p>
-                                        <p> Tamponi test molecolare: {allDataRegions[20].tamponi_test_molecolare}</p>
-                                        <p> Terapia intensiva: {allDataRegions[20].terapia_intensiva}</p>
-                                        <p> Totale casi: {allDataRegions[20].totale_casi}</p>
-                                        <p> Totale ospedalizzati: {allDataRegions[20].totale_ospedalizzati}</p>
-                                        <p> Totale positivi: {allDataRegions[20].totale_positivi}</p>
-                                        <p> Totale positivi test antigenico rapido: {allDataRegions[20].totale_positivi_test_antigenico_rapido}</p>
-                                        <p> Totale positivi test molecolare: {allDataRegions[20].totale_positivi_test_molecolare}</p>
+                                        <p> Deceduti: {applicaSeparatore(allDataRegions[20].deceduti)}</p>
+                                        <p> Dimessi guariti: {applicaSeparatore(allDataRegions[20].dimessi_guariti)}</p>
+                                        <p> Ingressi terapia intensiva: {applicaSeparatore(allDataRegions[20].ingressi_terapia_intensiva)}</p>
+                                        <p> Isolamento domiciliare: {applicaSeparatore(allDataRegions[20].isolamento_domiciliare)}</p>
+                                        <p> Nuovi positivi: {applicaSeparatore(allDataRegions[20].nuovi_positivi)}</p>
+                                        <p> Ricoverati con sintomi: {applicaSeparatore(allDataRegions[20].ricoverati_con_sintomi)}</p>
+                                        <p> Tamponi: {applicaSeparatore(allDataRegions[20].tamponi)}</p>
+                                        <p> Tamponi test antigenico rapido: {applicaSeparatore(allDataRegions[20].tamponi_test_antigenico_rapido)}</p>
+                                        <p> Tamponi test molecolare: {applicaSeparatore(allDataRegions[20].tamponi_test_molecolare)}</p>
+                                        <p> Terapia intensiva: {applicaSeparatore(allDataRegions[20].terapia_intensiva)}</p>
+                                        <p> Totale casi: {applicaSeparatore(allDataRegions[20].totale_casi)}</p>
+                                        <p> Totale ospedalizzati: {applicaSeparatore(allDataRegions[20].totale_ospedalizzati)}</p>
+                                        <p> Totale positivi: {applicaSeparatore(allDataRegions[20].totale_positivi)}</p>
+                                        <p> Totale positivi test antigenico rapido: {applicaSeparatore(allDataRegions[20].totale_positivi_test_antigenico_rapido)}</p>
+                                        <p> Totale positivi test molecolare: {applicaSeparatore(allDataRegions[20].totale_positivi_test_molecolare)}</p>
                                     </div>
                                 </div>
                                 : null

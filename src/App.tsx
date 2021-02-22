@@ -1,14 +1,16 @@
 import React from 'react';
 import './App.css';
-import { DataRegionsComponent } from './components/dataRegionsComponent/DataRegionsComponent';
+import { DataItalyComponent } from './components/dataItalyComponent/DataItalyComponent';
 import { MapItalyComponent } from './components/mapItalyComponent/MapItalyComponent';
+import { TableVacciniComponent } from './components/tableVacciniComponent/TableVacciniComponent';
 
 function App() {
 
   return (
-    <div>
-      <MapItalyComponent />
-      {/* <DataRegionsComponent /> */}
+    <div className='container'>
+          <DataItalyComponent />
+          <MapItalyComponent />
+        <TableVacciniComponent />
     </div>
   );
 }

@@ -1,0 +1,29 @@
+* {
+  box-sizing: margin-box;
+}
+.tabData {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.tabData .card {
+  padding: 0 !important;
+  margin: 2%;
+}
+
+.tabData .card .card-header {
+  font-weight: 500;
+  padding: 2% 0 !important;
+}
+.tabData .card .card-body {
+  font-size: 1.5em;
+}
+
+@media all and (max-width: 480px){
+ 
+  .tabData .card .card-body{
+    padding: 0!important;
+  }
+}
