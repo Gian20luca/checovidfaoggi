@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className='container'>
+      <h1 className="titlePage">Che covid fa oggi ?</h1>
           <DataItalyComponent />
           <MapItalyComponent />
         <TableVacciniComponent />

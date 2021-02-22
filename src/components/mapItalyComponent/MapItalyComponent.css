@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  margin-left: 6%;
 }
 .modale p,
 h3 {
@@ -42,22 +43,37 @@ h3 {
   line-height: 1;
   overflow-y: auto !important;
 }
-/* .clickP {
+.clickP {
   position: absolute;
-  top: 7%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%,-50%);
   text-align: center;
   font-size: 1.3em;
   font-weight: 500;
-} */
+}
 
 @media all and (max-width: 480px){
+  .clickP {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+  }
  
   .modale{
+   
+   
     display: block;
     position:absolute;
-    bottom: 50%;
+    bottom: 7%;
+    margin-left: 4.5%;
+    
+    
+    
   }
   .leaflet-container {
     height: 675px;

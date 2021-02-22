@@ -18,8 +18,11 @@ export const TableVacciniComponent = () => {
 
     return (
         <div>
+            <p className="titleTable">Dati Vaccinazioni del {dataVaccini[0]?.ultimo_aggiornamento.substring(0,10)} :</p>
             <div className="tableVaccini">
+
                 <table className="table table-striped table-bordered table-hover table-responsive{-sm|-md|-lg|-xl}">
+                
                     <thead className='thead-dark'>
                         <tr>
                             <th scope="col">Fascia anagrafica</th>

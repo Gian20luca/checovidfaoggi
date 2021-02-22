@@ -186,10 +186,10 @@ let geojson: any = gson;
     }
 
     return (<div>
-        {/* {!openDetails &&
+        {!openDetails &&
             <p className='clickP'>
-                Clicka su una regione per saperne di più.
-            </p>} */}
+                Clicca su una regione per saperne di più.
+            </p>}
         <div className='container-fluid'>
             <div className='row'>
                 <div className='col-md-6'>
@@ -205,7 +205,7 @@ let geojson: any = gson;
                     </div>
                 </div>
                 {openDetails &&
-                    <div className='col-md-6 modale animate_ animate__animated animate__bounceInLeft' id='modale'>
+                    <div className=' modale animate_ animate__animated animate__bounceInLeft' id='modale'>
 
                         <div>
 
