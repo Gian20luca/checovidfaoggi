@@ -15,14 +15,14 @@ export const MapItalyComponent: React.FC = () => {
     const [colorsGeojson, setColorsGeojson]: any = useState([]);
     const [DataRegions, setDataRegions]: any = useState([]);
     const [openDetails, setOpenDetails]: any = useState('');
-    const [hello, setHello]: any = useState();
-    const [colorBGDetails, setColorBGDetails]: any = useState('');
 
-
+let geojson: any = gson;
     let larghezzaDocument = document.documentElement.clientWidth;
-
     useEffect(() => {
-        
+        //chiamata geojson
+        fetch('https://raw.githubusercontent.com/Gian20luca/geojsonItaly/main/geojsonItaly.json')
+            .then(response => response.json())
+            .then(data => setDataGeojson(data));
        
         //chiamata api per i colori della regione
         fetch('https://raw.githubusercontent.com/imcatta/restrizioni_regionali_covid/main/dataset.json')
@@ -33,19 +33,10 @@ export const MapItalyComponent: React.FC = () => {
         )
             .then((response) => response.json())
             .then((data) => setDataRegions(data));
-            setDataGeojson(gson);
+           
     }, []);
 
-    //console.log('GEOJSON', dataGeojson)
     // console.log('MODALE',openDetails)
-    // let geojson: any = [];
-    // dataGeojson['features']?.map((item: any) => {
-    //     geojson.push(item);
-    // })
-    // geojson = _.orderBy(geojson, ["id"], ["asc"]);
-    // geojson.push(dataGeojson.type);
-    // geojson.push(dataGeojson.bbox);
-    // geojson.push(dataGeojson.)
     console.log('geojsonlocale', dataGeojson)
 
     //recupero dati di ogni regione
@@ -136,6 +127,7 @@ export const MapItalyComponent: React.FC = () => {
     }
 
     const style = (features: any) => {
+        //console.log('feature',features)
         return {
             fillColor: getColor(colors[features.properties.reg_istat_code_num - 1]?.colore),
             fillOpacity: 0.75,
@@ -166,7 +158,7 @@ export const MapItalyComponent: React.FC = () => {
 
     const Details = (e: any) => {
         setOpenDetails(e.target.feature.properties.reg_istat_code_num);
-        //console.log(e.target.feature?.properties)
+        console.log(e.target.feature)
     };
     const CloseDetails = () => {
         const closeModalAnimation = document.getElementById('modale');
@@ -204,13 +196,12 @@ export const MapItalyComponent: React.FC = () => {
                     <div className='containerMapGlobal animate_ animate__animated animate__bounceIn'>
 
                         <MapContainer id='map' center={position} zoom={responsiveMap(larghezzaDocument)} maxZoom={responsiveMap(larghezzaDocument)} minZoom={responsiveMap(larghezzaDocument)} maxBounds={position} dragging={false}>
-                            <TileLayer
+                            {/* <TileLayer
                                 attribution='Progetto di: Gianluca Bellafronte'
                                 url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-                            />
-                            {dataGeojson && colorsGeojson && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson}></GeoJSON>}
+                            /> */}
+                            {dataGeojson.features && colorsGeojson && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson.features}></GeoJSON>}
                         </MapContainer>
-
                     </div>
                 </div>
                 {openDetails &&
