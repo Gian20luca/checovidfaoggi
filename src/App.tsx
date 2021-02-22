@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className='container'>
-      <h1 className="titlePage">Che covid fa oggi ?</h1>
+      <h1 className="titlePage"><i className="fa fa-copyright"></i>he covid fa oggi ?</h1>
           <DataItalyComponent />
           <MapItalyComponent />
         <TableVacciniComponent />
