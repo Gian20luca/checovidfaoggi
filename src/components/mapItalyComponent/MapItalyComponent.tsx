@@ -185,12 +185,16 @@ let geojson: any = gson;
         }
     }
 
-    return (<div>
-        {!openDetails &&
+    return (<div className='allContainer'>
+        <div className="row">
+                {!openDetails &&
             <p className='clickP'>
                 Clicca su una regione per saperne di più.
             </p>}
+            </div>
         <div className='container-fluid'>
+            
+        
             <div className='row'>
                 <div className='col-md-6'>
                     <div className='containerMapGlobal animate_ animate__animated animate__bounceIn'>
