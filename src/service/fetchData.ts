@@ -37,15 +37,6 @@ export class FetchData {
       .then((data) => data);
   }
 
-  //dati geojson
-  getDataGeojson() {
-    return fetch(
-      "https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson"
-    )
-      .then((response) => response.json())
-      .then((data) => data);
-  }
-
   //colori regione
   getColorsRegions() {
     return fetch(

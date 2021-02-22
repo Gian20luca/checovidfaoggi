@@ -4,26 +4,26 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FetchData } from '../../service/fetchData';
 import { applicaSeparatore } from '../../core/functions/applicaSeparatore';
+import gson from '../../geoJSONitaly/gson.json';
 
 export const MapItalyComponent: React.FC = () => {
     const position: any = [42, 12.5];
     const _ = require("lodash");
     const objectAssign = require('object-assign');
     let service = FetchData.getInstance();
-    const [dataGeojson, setDataGeojson]: any = useState();
+    const [dataGeojson, setDataGeojson]: any = useState([]);
     const [colorsGeojson, setColorsGeojson]: any = useState([]);
     const [DataRegions, setDataRegions]: any = useState([]);
     const [openDetails, setOpenDetails]: any = useState('');
+    const [hello, setHello]: any = useState();
     const [colorBGDetails, setColorBGDetails]: any = useState('');
+
 
     let larghezzaDocument = document.documentElement.clientWidth;
 
     useEffect(() => {
-
-        //chiamata api per dati geojson
-        fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
-            .then(response => response.json())
-            .then(data => setDataGeojson(data));
+        
+       
         //chiamata api per i colori della regione
         fetch('https://raw.githubusercontent.com/imcatta/restrizioni_regionali_covid/main/dataset.json')
             .then(response => response.json())
@@ -33,10 +33,20 @@ export const MapItalyComponent: React.FC = () => {
         )
             .then((response) => response.json())
             .then((data) => setDataRegions(data));
+            setDataGeojson(gson);
     }, []);
 
-    // console.log('GEOJSON',dataGeojson)
-    // // console.log('MODALE',openDetails)
+    //console.log('GEOJSON', dataGeojson)
+    // console.log('MODALE',openDetails)
+    // let geojson: any = [];
+    // dataGeojson['features']?.map((item: any) => {
+    //     geojson.push(item);
+    // })
+    // geojson = _.orderBy(geojson, ["id"], ["asc"]);
+    // geojson.push(dataGeojson.type);
+    // geojson.push(dataGeojson.bbox);
+    // geojson.push(dataGeojson.)
+    console.log('geojsonlocale', dataGeojson)
 
     //recupero dati di ogni regione
     let allDataRegions: any = [];
@@ -71,7 +81,7 @@ export const MapItalyComponent: React.FC = () => {
 
 
     allDataRegions = _.orderBy(allDataRegions, ["id"], ["asc"]);
-    console.log('DATI DELLE REGIONI', allDataRegions);
+    //console.log('DATI DELLE REGIONI', allDataRegions);
     /***************************************************************************************************************************************/
 
     //recupero data di ieri 
@@ -156,6 +166,7 @@ export const MapItalyComponent: React.FC = () => {
 
     const Details = (e: any) => {
         setOpenDetails(e.target.feature.properties.reg_istat_code_num);
+        //console.log(e.target.feature?.properties)
     };
     const CloseDetails = () => {
         const closeModalAnimation = document.getElementById('modale');
@@ -197,7 +208,7 @@ export const MapItalyComponent: React.FC = () => {
                                 attribution='Progetto di: Gianluca Bellafronte'
                                 url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
                             />
-                            {dataGeojson && colorsGeojson && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson.features}></GeoJSON>}
+                            {dataGeojson && colorsGeojson && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson}></GeoJSON>}
                         </MapContainer>
 
                     </div>
@@ -240,35 +251,6 @@ export const MapItalyComponent: React.FC = () => {
                                         )
                                     }
                                 })
-                            }
-                        </div>
-                        <div>
-                            {openDetails &&
-
-                                (4 === openDetails) ?
-                                <div className='card text-white' style={{ backgroundColor: colorBGdetails() }}>
-                                    <div className="card-header">
-                                        <h3> {allDataRegions[20].denominazione_regione}</h3>
-                                    </div>
-                                    <div className="card-body">
-                                        <p> Deceduti: {applicaSeparatore(allDataRegions[20].deceduti)}</p>
-                                        <p> Dimessi guariti: {applicaSeparatore(allDataRegions[20].dimessi_guariti)}</p>
-                                        <p> Ingressi terapia intensiva: {applicaSeparatore(allDataRegions[20].ingressi_terapia_intensiva)}</p>
-                                        <p> Isolamento domiciliare: {applicaSeparatore(allDataRegions[20].isolamento_domiciliare)}</p>
-                                        <p> Nuovi positivi: {applicaSeparatore(allDataRegions[20].nuovi_positivi)}</p>
-                                        <p> Ricoverati con sintomi: {applicaSeparatore(allDataRegions[20].ricoverati_con_sintomi)}</p>
-                                        <p> Tamponi: {applicaSeparatore(allDataRegions[20].tamponi)}</p>
-                                        <p> Tamponi test antigenico rapido: {applicaSeparatore(allDataRegions[20].tamponi_test_antigenico_rapido)}</p>
-                                        <p> Tamponi test molecolare: {applicaSeparatore(allDataRegions[20].tamponi_test_molecolare)}</p>
-                                        <p> Terapia intensiva: {applicaSeparatore(allDataRegions[20].terapia_intensiva)}</p>
-                                        <p> Totale casi: {applicaSeparatore(allDataRegions[20].totale_casi)}</p>
-                                        <p> Totale ospedalizzati: {applicaSeparatore(allDataRegions[20].totale_ospedalizzati)}</p>
-                                        <p> Totale positivi: {applicaSeparatore(allDataRegions[20].totale_positivi)}</p>
-                                        <p> Totale positivi test antigenico rapido: {applicaSeparatore(allDataRegions[20].totale_positivi_test_antigenico_rapido)}</p>
-                                        <p> Totale positivi test molecolare: {applicaSeparatore(allDataRegions[20].totale_positivi_test_molecolare)}</p>
-                                    </div>
-                                </div>
-                                : null
                             }
                         </div>
                     </div>
