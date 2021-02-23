@@ -18,12 +18,12 @@ export const DataItalyComponent = () => {
     console.log('andamento nazionale', dataItaly);
 
     return (
-        <div>
+        <div className='animate_ animate__animated animate__bounceIn'>
             {dataItaly?.map((item: any, index: number) => {
                 return (
                     <div className='tabData row' key={index}>
                         <div className='card col-md-2 text-white bg-warning'>
-                            <p className='card-header'>POSITIVI</p>
+                            <p className='card-header'>ATTUALI POSITIVI</p>
                             <p className='card-body'> {applicaSeparatore(item.totale_positivi)}</p>
                         </div>
                         <div className='card col-md-2 text-white bg-success'>

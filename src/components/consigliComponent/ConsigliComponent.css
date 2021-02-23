@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Lobster");
+
+.consigliContainer {
+  margin-top: 3%;
+  margin-bottom: 4%;
+}
+
+.colConsigli {
+  font-family: "Lobster", cursive;
+  padding: 5%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.7em;
+}

@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FetchData } from '../../service/fetchData';
 import { applicaSeparatore } from '../../core/functions/applicaSeparatore';
-import gson from '../../geoJSONitaly/gson.json';
 
 export const MapItalyComponent: React.FC = () => {
     const position: any = [42, 12.5];
@@ -16,14 +15,13 @@ export const MapItalyComponent: React.FC = () => {
     const [DataRegions, setDataRegions]: any = useState([]);
     const [openDetails, setOpenDetails]: any = useState('');
 
-let geojson: any = gson;
     let larghezzaDocument = document.documentElement.clientWidth;
     useEffect(() => {
         //chiamata geojson
         fetch('https://raw.githubusercontent.com/Gian20luca/geojsonItaly/main/geojsonItaly.json')
             .then(response => response.json())
             .then(data => setDataGeojson(data));
-       
+
         //chiamata api per i colori della regione
         fetch('https://raw.githubusercontent.com/imcatta/restrizioni_regionali_covid/main/dataset.json')
             .then(response => response.json())
@@ -33,7 +31,7 @@ let geojson: any = gson;
         )
             .then((response) => response.json())
             .then((data) => setDataRegions(data));
-           
+
     }, []);
 
     // console.log('MODALE',openDetails)
@@ -184,17 +182,16 @@ let geojson: any = gson;
             return 5.5
         }
     }
-
     return (<div className='allContainer'>
         <div className="row">
                 {!openDetails &&
-            <p className='clickP'>
-                Clicca su una regione per saperne di più.
+                    <p className='clickP'>
+                        Clicca su una regione per saperne di più.
             </p>}
-            </div>
+        </div>
         <div className='container-fluid'>
-            
-        
+
+
             <div className='row'>
                 <div className='col-md-6'>
                     <div className='containerMapGlobal animate_ animate__animated animate__bounceIn'>
@@ -208,6 +205,7 @@ let geojson: any = gson;
                         </MapContainer>
                     </div>
                 </div>
+                {/* <div className="col-md-6"> */}
                 {openDetails &&
                     <div className=' modale animate_ animate__animated animate__bounceInLeft' id='modale'>
 
@@ -250,6 +248,7 @@ let geojson: any = gson;
                         </div>
                     </div>
                 }
+                {/* </div> */}
             </div>
         </div>
     </div>

@@ -17,13 +17,13 @@ export const TableVacciniComponent = () => {
 
 
     return (
-        <div>
+        <div className='containerTable  animate_ animate__animated animate__bounceIn'>
             <p className="titleTable">Dati Vaccinazioni del {dataVaccini[0]?.ultimo_aggiornamento.substring(0,10)} :</p>
             <div className="tableVaccini">
 
                 <table className="table table-striped table-bordered table-hover table-responsive{-sm|-md|-lg|-xl}">
                 
-                    <thead className='thead-dark'>
+                    <thead className='text-white bg-primary'>
                         <tr>
                             <th scope="col">Fascia anagrafica</th>
                             <th scope="col">Operatori sanitari sociosanitari</th>
