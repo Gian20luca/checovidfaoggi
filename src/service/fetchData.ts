@@ -11,6 +11,16 @@ export class FetchData {
   static setInstance(_instance: any) {
     instance = _instance;
   }
+
+  //dati geojson italia
+  getDataGeojson() {
+    return fetch(
+      "https://raw.githubusercontent.com/Gian20luca/geojsonItaly/main/geojsonItaly.json"
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  }
+
   //dati per ogni regione
   getDataRegions() {
     return fetch(
@@ -47,12 +57,11 @@ export class FetchData {
   }
 
   //recupero dati vaccini per fasce d eta
-  getVaccini(){
-   return fetch(
+  getVaccini() {
+    return fetch(
       "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/anagrafica-vaccini-summary-latest.json"
-  )
+    )
       .then((response) => response.json())
       .then((data) => data.data);
-      
   }
 }

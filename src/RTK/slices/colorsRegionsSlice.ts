@@ -4,23 +4,35 @@ import { FetchData } from "../../service/fetchData";
 let service = FetchData.getInstance();
 const _ = require("lodash");
 
-export const getDataRegions: any = createAsyncThunk(
-  "dataRegions/getDataRegions",
+//recupero data di ieri
+var date = new Date();
+var gg, mm, aaaa;
+gg = (date.getDate() - 1 > 9 ? "" : "0") + (date.getDate() - 1);
+mm = (date.getMonth() + 1 > 9 ? "" : "0") + (date.getMonth() + 1) + "-";
+aaaa = date.getFullYear() + "-";
+let totalDate = aaaa + mm + gg;
+
+export const getColorsRegions: any = createAsyncThunk(
+  "colorsRegions/getColorsRegions",
   () => {
-    return service.getDataRegions();
+    return service.getColorsRegions();
   }
 );
 
-const dataRegions = createSlice({
-  name: "dataRegions",
+const colorsRegions = createSlice({
+  name: "colorsRegions",
   initialState: {
-    dataRegions: [],
+    colorsRegions: [],
   },
   reducers: {},
   extraReducers: {
-    [getDataRegions.fulfilled]: (state, action) => {
-      let result = [];
-      result = action.payload;
+    [getColorsRegions.fulfilled]: (state, action) => {
+      let result: any = [];
+      action.payload.map((item: any) => {
+        if (item.data === totalDate) {
+          result.push(item);
+        }
+      });
       result.map((item: any) => {
         item.denominazione_regione === "Piemonte"
           ? (item.id = 1)
@@ -28,7 +40,7 @@ const dataRegions = createSlice({
           ? (item.id = 2)
           : item.denominazione_regione === "Lombardia"
           ? (item.id = 3)
-          : item.denominazione_regione === "P.A. Trento"
+          : item.denominazione_regione === "Provincia autonoma Trento"
           ? (item.id = 4)
           : item.denominazione_regione === "Veneto"
           ? (item.id = 5)
@@ -65,9 +77,9 @@ const dataRegions = createSlice({
           : (item.id = 21);
       });
       result = _.orderBy(result, ["id"], ["asc"]);
-      state.dataRegions = result;
+      state.colorsRegions = result;
     },
   },
 });
 
-export const dataRegionsReducer = dataRegions.reducer;
+export const colorsRegionsReducer = colorsRegions.reducer;

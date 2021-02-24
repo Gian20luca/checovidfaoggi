@@ -7,9 +7,7 @@ import { applicaSeparatore } from '../../core/functions/applicaSeparatore';
 export const DataItalyComponent = () => {
 
     const dispatch = useDispatch();
-
-    const dataItalySelector = (state: any) => state.dataItaly['dataItaly'];
-    const dataItaly = useSelector(dataItalySelector);
+    const dataItaly = useSelector((state: any) => state.dataItaly.dataItaly);
 
     useEffect(() => {
         dispatch(getDataItaly());

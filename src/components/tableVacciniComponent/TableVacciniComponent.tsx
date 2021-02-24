@@ -7,9 +7,7 @@ import { applicaSeparatore } from '../../core/functions/applicaSeparatore';
 export const TableVacciniComponent = () => {
 
     const dispatch = useDispatch();
-
-    const dataVacciniSelector = (state: any) => state.dataVaccini['dataVaccini'];
-    const dataVaccini = useSelector(dataVacciniSelector);
+    const dataVaccini = useSelector((state: any) => state.dataVaccini.dataVaccini);
 
     useEffect(() => {
         dispatch(getVaccini());
@@ -18,11 +16,11 @@ export const TableVacciniComponent = () => {
 
     return (
         <div className='containerTable  animate_ animate__animated animate__bounceIn'>
-            <p className="titleTable">Dati Vaccinazioni del {dataVaccini[0]?.ultimo_aggiornamento.substring(0,10)} :</p>
+            <p className="titleTable">Dati Vaccinazioni del {dataVaccini[0]?.ultimo_aggiornamento.substring(0, 10)} :</p>
             <div className="tableVaccini">
 
                 <table className="table table-striped table-bordered table-hover table-responsive{-sm|-md|-lg|-xl}">
-                
+
                     <thead className='text-white bg-primary'>
                         <tr>
                             <th scope="col">Fascia anagrafica</th>
