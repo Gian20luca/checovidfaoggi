@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOpenDetails } from '../../RTK/slices/openDetailsSlice';
 import { getColorsRegions } from '../../RTK/slices/colorsRegionsSlice';
 import { getDataGeojson } from '../../RTK/slices/dataGeojsonSlice';
+import { getDataProvincie } from '../../RTK/slices/dataProvincieSlice';
+import { ProvincieComponent } from './provincieComponent/ProvincieComponent';
 
 export const MapItalyComponent: React.FC = () => {
 
@@ -15,15 +17,23 @@ export const MapItalyComponent: React.FC = () => {
 
     const position: any = [42, 12.5];
 
+    const [dataGeojson, setDataGeojson]: any = useState();
+
     const openDetails: any = useSelector((state: any) => state.openDetails.openDetails);
     const colorsRegions: any = useSelector((state: any) => state.colorsRegions.colorsRegions);
-    const dataGeojson: any = useSelector((state: any) => state.dataGeojson.dataGeojson);
+    // const dataGeojson: any = useSelector((state: any) => state.dataGeojson.dataGeojson);
 
     let larghezzaDocument = document.documentElement.clientWidth;
 
     useEffect(() => {
         dispatch(getColorsRegions());
-        dispatch(getDataGeojson());
+        dispatch(getDataProvincie());
+        // dispatch(getDataGeojson());
+        fetch(
+            "https://raw.githubusercontent.com/Gian20luca/geojsonItaly/main/geojsonItaly.json"
+        )
+            .then((response) => response.json())
+            .then((data) => setDataGeojson(data));
     }, []);
 
 
@@ -103,7 +113,7 @@ export const MapItalyComponent: React.FC = () => {
                                 attribution='Progetto di: Gianluca Bellafronte'
                                 url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
                             /> */}
-                                {dataGeojson.features && colorsRegions && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson.features}></GeoJSON>}
+                                {dataGeojson && colorsRegions && <GeoJSON style={style} onEachFeature={onEachFeature} data={dataGeojson}></GeoJSON>}
                             </MapContainer>
 
                         </div>
@@ -116,6 +126,9 @@ export const MapItalyComponent: React.FC = () => {
                         </div>
                     }
                 </div>
+            </div>
+            <div>
+                {openDetails && <ProvincieComponent data={openDetails} colors={colorBGdetails()}/>}
             </div>
         </div>
     );

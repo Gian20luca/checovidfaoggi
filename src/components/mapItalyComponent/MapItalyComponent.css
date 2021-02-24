@@ -19,30 +19,7 @@
   opacity: 0 !important;
 }
 
-.modale {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  margin-left: 6%;
-}
-.modale p,
-h3 {
-  font-weight: bold;
-  text-shadow: 0.4px 0.4px 0 #333, 0.4px -0.4px 0 #333, -0.4px 0.4px 0 #333,
-    -0.4px -0.4px 0 #333;
-}
-.modale h3 {
-  text-transform: uppercase;
-}
-.card {
-  height: 100%;
-  width: 350px !important;
-  padding:0 !important;
-}
-.card-body {
-  line-height: 1;
-  overflow-y: auto !important;
-}
+
 .clickP {
   /* position: absolute;
   top: 37%;

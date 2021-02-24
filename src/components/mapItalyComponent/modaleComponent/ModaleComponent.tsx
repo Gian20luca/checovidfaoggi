@@ -3,6 +3,7 @@ import './ModaleComponent.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDataRegions } from '../../../RTK/slices/dataRegionsSlice';
 import { getOpenDetails } from '../../../RTK/slices/openDetailsSlice';
+import { getOpenTableProvincie } from '../../../RTK/slices/openTableProvincie';
 import { applicaSeparatore } from '../../../core/functions/applicaSeparatore';
 
 
@@ -24,7 +25,7 @@ export const ModaleComponent = (props: any) => {
 
     return (
         <div>
-            {props.data &&
+            {
 
                 DataRegions.map((item: any) => {
                     console.log(props.data)
@@ -53,6 +54,7 @@ export const ModaleComponent = (props: any) => {
                                     <p> Totale positivi test antigenico rapido: {applicaSeparatore(item.totale_positivi_test_antigenico_rapido)}</p>
                                     <p> Totale positivi test molecolare: {applicaSeparatore(item.totale_positivi_test_molecolare)}</p>
                                 </div>
+                                <div className="card-footer spanProvincie"><span onClick={()=>dispatch(getOpenTableProvincie(true))}>Visualizza casi totali provincie</span></div>
                             </div>
                         )
                     }

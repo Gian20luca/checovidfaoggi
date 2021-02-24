@@ -1,0 +1,13 @@
+.containerProvincie{
+    margin-top: 8%;
+    margin-bottom: 13%;
+    text-align: center;
+}
+thead{
+    text-shadow: 0.4px 0.4px 0 #333, 0.4px -0.4px 0 #333, -0.4px 0.4px 0 #333,
+    -0.4px -0.4px 0 #333;
+}
+.btn{
+    padding: 0.2rem 0.7rem !important;
+    margin-bottom: 3%;
+}

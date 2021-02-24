@@ -1,0 +1,59 @@
+.modale {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-left: 6%;
+}
+.modale p,
+h3 {
+  font-weight: bold;
+  text-shadow: 0.4px 0.4px 0 #333, 0.4px -0.4px 0 #333, -0.4px 0.4px 0 #333,
+    -0.4px -0.4px 0 #333;
+}
+.modale h3 {
+  text-transform: uppercase;
+}
+.card {
+  height: 100%;
+  width: 350px !important;
+  padding: 0 !important;
+}
+.card-body {
+  line-height: 1;
+  overflow-y: auto !important;
+}
+.spanProvincie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-shadow: 0.4px 0.4px 0 #333, 0.4px -0.4px 0 #333, -0.4px 0.4px 0 #333,
+    -0.4px -0.4px 0 #333;
+  cursor: pointer;
+}
+.spanProvincie:hover{
+    background: rgb(235, 192, 0);
+    font-weight: bold;
+}
+
+@media all and (max-width: 480px) {
+  .clickP {
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  .modale {
+    display: block;
+    position: absolute;
+    bottom: 7%;
+    margin-left: 4.5%;
+  }
+  .card {
+    height: 100%;
+    width: 340px !important;
+    padding: 0 !important;
+  }
+}
